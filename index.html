@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhayalan K - Cloud Security Architect</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Home page specific styles */
+        header {
+            text-align: center;
+            padding: 160px 20px 100px;
+            animation: fadeInDown 1s ease-out;
+            position: relative;
+        }
+
+        .profile-section {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 50px;
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--surface);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            border: 3px solid var(--accent-border);
+            /* reduce bright glow to a subtle neutral shadow */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            /* keep a subtle gentle movement but remove the colored glow */
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-2px) scale(1.01); }
+        }
+
+        /* removed colorful profile border to eliminate bright gradient glow */
+
+        .profile-img:hover {
+            transform: translateY(-10px) scale(1.05);
+            animation: none;
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--accent-border);
+            /* subtle movement instead of glowing ring */
+            animation: statusPulse 2.6s ease-in-out infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.95; }
+        }
+
+        h1 {
+                animation: pulse 3s ease-in-out infinite;
+            color: var(--charade);
+            font-size: 5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            /* use Charade for headers (serious, grounded tone) */
+        }
+
+        .tagline {
+            font-size: 1.4em;
+            margin-bottom: 50px;
+            color: var(--text-on-light); /* Vampire Black on dusty gray for strong visibility */
+            font-weight: 500; /* slightly stronger */
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.8s forwards;
+        }
+
+        /* scroll indicator removed to simplify UI */
+
+        /* scroll indicator styles removed */
+
+        .skills-grid {
+            display: grid;
+            background: var(--surface);
+            border: 1px solid rgba(0,0,0,0.12);
+            margin-top: 60px;
+        }
+
+        .skill-card {
+            padding: 45px;
+            /* simplified — global stylesheet handles visual appearance */
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 22px rgba(0,0,0,0.22);
+        }
+
+        .skill-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-icon {
+            font-size: 3em;
+            margin-bottom: 25px;
+            display: block;
+            filter: grayscale(0.3);
+            transition: all 0.4s ease;
+        }
+
+        .skill-card:hover .skill-icon {
+            filter: grayscale(0);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .skill-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-primary);
+            margin-bottom: 18px;
+            font-size: 1.7em;
+            font-weight: 600;
+        }
+
+        .skill-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05em;
+            margin-top: 0;
+            font-weight: 300;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-top: 60px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 40px;
+            background: var(--surface);
+            border: 1px solid rgba(0,0,0,0.28);
+            border-radius: 16px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 0;
+            background: var(--accent);
+            transition: height 0.4s ease;
+        }
+
+        .contact-item:hover {
+            background: var(--surface-elev);
+            border-color: var(--accent);
+            transform: translateX(10px);
+            /* toned-down neutral shadow */
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+        }
+
+        .contact-item:hover::before {
+            height: 100%;
+        }
+
+        .contact-icon {
+            font-size: 2.5em;
+            transition: transform 0.4s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .contact-item strong {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 1em;
+            letter-spacing: 1px;
+        }
+
+        .contact-item div {
+            color: var(--text-secondary);
+            font-weight: 300;
+            font-size: 1.05em;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            header {
+                padding: 120px 20px 60px;
+            }
+
+            h1 {
+                font-size: 3em;
+                letter-spacing: -1px;
+            }
+
+            .tagline {
+                font-size: 1.1em;
+                margin-bottom: 30px;
+                padding: 0 10px;
+            }
+
+            .profile-img {
+                width: 140px;
+                height: 140px;
+                font-size: 60px;
+            }
+
+            .status-badge {
+                width: 16px;
+                height: 16px;
+                bottom: 8px;
+                right: 8px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
+                padding: 0 20px;
+                width: 100%;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            /* scroll indicator removed */
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                margin-top: 40px;
+            }
+
+            .skill-card {
+                padding: 30px;
+            }
+
+            .skill-card h3 {
+                font-size: 1.5em;
+            }
+
+            .skill-card p {
+                font-size: 1em;
+                line-height: 1.7;
+            }
+
+            .skill-icon {
+                font-size: 2.5em;
+                margin-bottom: 20px;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .contact-item {
+                padding: 25px;
+                gap: 20px;
+            }
+
+            .contact-icon {
+                font-size: 2em;
+            }
+
+            .contact-item strong {
+                font-size: 0.9em;
+            }
+
+            .contact-item div {
+                font-size: 0.95em;
+                word-break: break-all;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .content-section {
+                padding: 40px 25px;
+                margin: 40px 0;
+            }
+
+            .content-section h2 {
+                font-size: 2.5em;
+            }
+
+            .content-section p {
+                font-size: 1.05em;
+                line-height: 1.8;
+                margin-top: 30px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            header {
+                padding: 100px 15px 50px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            .tagline {
+                font-size: 1em;
+                letter-spacing: 0.5px;
+            }
+
+            .profile-img {
+                width: 120px;
+                height: 120px;
+                font-size: 50px;
+            }
+
+            .cta-buttons .btn {
+                padding: 15px 30px;
+                font-size: 0.95em;
+            }
+
+            .skill-card {
+                padding: 25px;
+            }
+
+            .skill-card h3 {
+                font-size: 1.3em;
+            }
+
+            .skill-card p {
+                font-size: 0.95em;
+            }
+
+            .skill-icon {
+                font-size: 2.2em;
+            }
+
+            .contact-item {
+                padding: 20px;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .contact-item:hover {
+                transform: translateX(0);
+                transform: translateY(-5px);
+            }
+
+            .content-section {
+                padding: 30px 20px;
+            }
+
+            .content-section h2 {
+                font-size: 2em;
+            }
+
+            .content-section p {
+                font-size: 1em;
+            }
+
+            .nav-links {
+                gap: 8px;
+            }
+
+            .nav-links a {
+                font-size: 0.75em;
+            }
+
+            .logo {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+            
+
+    <nav>
+        <div class="nav-content">
+            <div class="logo">DK</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="daily-logs.html">Daily Logs</a></li>
+                <li><a href="#focus">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="profile-section">
+                <div class="profile-img">
+                    ✦
+                    <div class="status-badge"></div>
+                </div>
+            </div>
+            <h1>Dhayalan K</h1>
+            <p class="tagline">Learning to secure the future, one cloud at a time.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="scrollToSection('about')">Explore My Journey</button>
+                <a href="daily-logs.html" class="btn btn-secondary">View Daily Logs</a>
+            </div>
+            <!-- scroll indicator removed -->
+        </header>
+
+        <div class="content-section" id="about">
+            <h2>About Me</h2>
+            <p>
+                I'm a passionate cybersecurity student with a clear goal: to become a Cloud Security Architect. 
+                My journey is focused on mastering the essential foundations, security principles, cloud infrastructure, 
+                and understanding systems at a fundamental level. I'm building my expertise in Linux administration, 
+                learning C to grasp programming fundamentals, and using Python for scripting and automation. My next 
+                step is mastering Go, the language of choice in cloud computing, which will be my primary language 
+                for building robust, scalable cloud security solutions.
+            </p>
+        </div>
+
+        <div class="content-section" id="focus">
+            <h2>Current Focus</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">🐧</div>
+                    <h3>Linux Mastery</h3>
+                    <p>Deep diving into Linux administration, command-line proficiency, bash scripting automation, and understanding system internals for effective cloud infrastructure management.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🐍</div>
+                    <h3>Python Scripting</h3>
+                    <p>Learning Python for automation scripts, task scheduling, and building efficient tools to streamline security workflows and cloud operations.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">⚡️</div>
+                    <h3>C Fundamentals</h3>
+                    <p>Building a solid foundation in programming through C—understanding memory management, pointers, data structures, and core concepts that underpin modern systems.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">☁️</div>
+                    <h3>Cloud Security Path</h3>
+                    <p>Exploring cloud architectures, IAM policies, network security, and preparing to master Go—the primary language for cloud-native applications and infrastructure.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="contact">
+            <h2>Get in Touch</h2>
+            <div class="contact-info">
+                <a href="mailto:dhayalankcys007@gmail.com" class="contact-item">
+                    <span class="contact-icon">📬</span>
+                    <div>
+                        <strong>EMAIL</strong>
+                        dhayalankcys007@gmail.com
+                    </div>
+                </a>
+                <a href="https://github.com/dy4k7" target="_blank" rel="noopener noreferrer" class="contact-item">
+                    <span class="contact-icon">⚡️</span>
+                    <div>
+                        <strong>GITHUB</strong>
+                        @dy4k7
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="daily-logs.html">Daily Logs</a>
+                <a href="#focus">Skills</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p>© 2025 Dhayalan K · Designed & Developed with Purpose</p>
+        </footer>
+    </div>
+
+    <script>
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                const offset = 80;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'translateY(-12px) scale(1.02)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 300);
+            });
+        });
+
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                if (currentScroll > lastScroll) {
+                    nav.style.transform = 'translateY(-100%)';
+                } else {
+                    nav.style.transform = 'translateY(0)';
+                }
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = this.getAttribute('href').substring(1);
+                scrollToSection(target);
+            });
+        });
+    </script>
+</body>
+</html>

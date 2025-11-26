@@ -1,0 +1,231 @@
+/* Final minimal, noise-free stylesheet (single, clean copy)
+    - Gothic / Noir palette (Vampire Black, Charade, Wine Red) via CSS variables
+    - No noisy overlays, gradients, or neon glows — solid surfaces, clear accents
+    - Consistent minimal styles for all pages
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700;900&display=swap');
+
+/* removed duplicate old palette — using the modern gothic palette defined later */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text-on-light);-webkit-font-smoothing:antialiased}
+
+/* disable decorative overlays */
+.noise,.floating-shapes{display:none!important}
+
+.container{max-width:1100px;margin:0 auto;padding:28px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;background:var(--charade);backdrop-filter:blur(4px);border-bottom:1px solid rgba(0,0,0,0.12);z-index:1000}
+.nav-content{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;max-width:1200px;margin:0 auto}
+.logo{font-family:'Playfair Display',serif;color:var(--text-primary);font-weight:700}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{color:var(--accent-soft);text-decoration:none;font-weight:500;font-size:.95rem}
+.nav-links a:hover{color:var(--text-primary)}
+
+/* HEADER */
+header{padding:140px 18px 64px;text-align:center}
+.profile-section{display:inline-block;margin-bottom:28px;position:relative}
+.profile-img{width:170px;height:170px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:64px;color:var(--text-primary);border:3px solid var(--accent-border);background:linear-gradient(180deg,var(--surface),rgba(16,6,26,0.9));box-shadow:0 12px 40px rgba(0,0,0,0.55);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.profile-img:hover{transform:translateY(-6px)}
+.status-badge{position:absolute;bottom:8px;right:8px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--accent-border)}
+
+h1{font-family:'Playfair Display',serif;font-size:3.2rem;margin:12px 0;color:var(--text-primary)}
+.tagline{color:var(--text-secondary);margin-top:6px;font-weight:300}
+
+/* CONTENT SECTIONS */
+.content-section{background:var(--surface);border-radius:14px;padding:44px;margin:56px 0;border:1px solid rgba(0,0,0,0.2)}
+.content-section::before{content:'';position:absolute;inset:0;opacity:0;pointer-events:none}
+.content-section:hover{border-color:var(--accent-border);transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,0.28)}
+
+/* headings */
+h2{font-family:'Playfair Display',serif;color:var(--text-primary);margin-bottom:16px}
+h2::after{content:'';display:block;height:4px;width:72px;background:var(--accent);border-radius:4px;margin-top:8px}
+
+:root{
+    /* Final requested palette — semantic variable names */
+    --vampire-black: #0E0204; /* Vampire Black — deep, primary */
+    --charade: #252431; /* Charade — dark blue-gray for headers/nav */
+    --raisin-black: #271E1F; /* Raisin Black — dividers / subtle lines */
+    --black-swan:    #4A464F; /* Black Swan — dark blue-gray */
+    --twilight:      #774972; /* Twilight Lavender — secondary */
+    --blackberry:    #5E2A3B; /* Blackberry — brambly */
+    --old-burgundy:  #3F3130; /* Old Burgundy — moody */
+    --wine-red:      #A30E2B; /* Wine Red — accent */
+    --pink-lavender: #DFBCCA; /* Pink Lavender — soft accent */
+
+    /* Backgrounds & surfaces */
+    --bg: #A79595; /* Dusty Gray — page background */
+    --surface: var(--old-burgundy); /* cards / panels */
+    --surface-elev: var(--black-swan); /* elevated surface */
+
+    /* Text / UI */
+    --text-ui-light: #F3EEE7; /* Antique White — UI on dark surfaces */
+    --text-ui-muted: #C0B5B3; /* Pink Swan — softer text */
+    --text-dim: #706B68; /* Dove Gray — small captions */
+    --text-on-light: var(--vampire-black); /* text on light (Dusty Gray) */
+    --text-on-dark: var(--text-ui-light); /* text on dark surfaces */
+
+    /* accents */
+    --accent: var(--wine-red);
+    --accent-soft: var(--pink-lavender);
+
+    /* dividers / subtle lines */
+    --divider-1: #271E1F; /* Raisin Black */
+    --divider-2: #252431; /* Charade */
+
+    /* backward-compatible names used elsewhere */
+    --text-primary: var(--text-on-dark);
+    --text-secondary: var(--text-ui-muted);
+
+    /* misc */
+    --accent-border: #6f0c22;
+    --border: rgba(20,16,16,0.36);
+    --divider: rgba(23,18,20,0.4);
+}
+
+.content-section p {
+    line-height: 2;
+    color: var(--text-secondary);
+    font-size: 1.2em;
+    margin-top: 50px;
+    font-weight: 300;
+}
+
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--text-primary)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,0.22)}
+.btn-secondary{background:transparent;color:var(--accent);border:1px solid rgba(163,14,43,0.12)}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: var(--accent);
+    transition: width 0.5s ease, height 0.5s ease;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.btn{display:inline-block;padding:10px 16px;border-radius:10px;border:1px solid transparent;color:var(--text-primary);text-decoration:none;cursor:pointer;position:relative;overflow:hidden;z-index:0;font-weight:600;transition:all .18s ease;background:transparent}
+.btn:hover::before {
+    width: 300%;
+    height: 300%;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: var(--text-primary);
+    border: 2px solid var(--accent);
+}
+
+.btn-primary::before {
+    background: var(--accent-soft);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    /* use a subtle neutral shadow instead of a bright accent glow */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+.btn-secondary {
+    color: var(--accent);
+}
+
+/* focus / accessible ring */
+.btn:focus-visible{outline:3px solid rgba(223,187,202,0.18);outline-offset:2px;border-radius:10px}
+.btn-secondary:hover {
+    color: var(--text-primary);
+    border-color: var(--accent);
+}
+
+footer {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-muted);
+    margin-top: 100px;
+    border-top: 1px solid rgba(22, 12, 36, 0.2);
+    font-weight: 300;
+    position: relative;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-links a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.footer-links a:hover {
+    color: var(--text-secondary);
+    transform: translateY(-2px);
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.filter-section {
+    position: relative;
+    z-index: 200; /* raise above floating overlays */
+    pointer-events: auto;
+}
+
+.filter-section .search-box {
+    position: relative;
+    z-index: 201;
+    pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 15px 20px;
+    }
+
+    .nav-links {
+        gap: 20px;
+    }
+
+    .nav-links a {
+        font-size: 0.85em;
+    }
+
+    h2 {
+        font-size: 2.5em;
+    }
+
+    .content-section {
+        padding: 60px 35px;
+        margin: 50px 0;
+    }
+}
